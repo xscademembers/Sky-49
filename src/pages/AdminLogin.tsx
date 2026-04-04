@@ -26,18 +26,20 @@ export function AdminLogin() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-      const data = await res.json();
+
+      let data: any;
+      try { data = await res.json(); } catch { data = {}; }
 
       if (!res.ok) {
-        setError(data.error || 'Invalid credentials');
+        setError(data.error || data.details || `Server error (${res.status})`);
         setLoading(false);
         return;
       }
 
       localStorage.setItem('admin_token', data.token);
       navigate('/admin/dashboard', { replace: true });
-    } catch {
-      setError('Unable to connect to server');
+    } catch (err: any) {
+      setError(err.message || 'Unable to connect to server');
       setLoading(false);
     }
   };
