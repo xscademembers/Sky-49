@@ -16,6 +16,9 @@ import {
   CheckCircle2,
   Clock,
   Home,
+  ChevronDown,
+  ChevronUp,
+  Menu,
 } from 'lucide-react';
 
 type ContactItem = {
@@ -64,6 +67,13 @@ function formatDate(dateStr: string) {
   });
 }
 
+function formatDateShort(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('en-IN', {
+    day: 'numeric',
+    month: 'short',
+  });
+}
+
 function interestLabel(val: string) {
   const map: Record<string, string> = {
     '3bhk': '3 BHK Luxury',
@@ -96,28 +106,30 @@ function OverviewTab({
 
   return (
     <div>
-      <h2 className="mb-6 text-2xl font-semibold text-charcoal">Dashboard Overview</h2>
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <h2 className="mb-4 text-xl font-semibold text-charcoal sm:mb-6 sm:text-2xl">Dashboard Overview</h2>
+      <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
         {stats.map((s) => (
           <div
             key={s.label}
-            className="rounded-xl border border-stone/40 bg-white p-6 shadow-sm"
+            className="rounded-xl border border-stone/40 bg-white p-4 shadow-sm sm:p-6"
           >
-            <div className="mb-3 flex items-center gap-3">
-              <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${s.color}`}>
-                <s.icon className="h-5 w-5" />
+            <div className="mb-2 flex items-center gap-2 sm:mb-3 sm:gap-3">
+              <div className={`flex h-8 w-8 items-center justify-center rounded-lg sm:h-10 sm:w-10 ${s.color}`}>
+                <s.icon className="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
-              <span className="text-xs font-medium uppercase tracking-wider text-muted">{s.label}</span>
+              <span className="text-[10px] font-medium uppercase tracking-wider text-muted sm:text-xs">{s.label}</span>
             </div>
-            <p className="text-3xl font-bold text-charcoal">{s.value}</p>
+            <p className="text-2xl font-bold text-charcoal sm:text-3xl">{s.value}</p>
           </div>
         ))}
       </div>
 
       {contacts.length > 0 && (
-        <div className="mt-8">
-          <h3 className="mb-4 text-lg font-semibold text-charcoal">Recent Inquiries</h3>
-          <div className="overflow-hidden rounded-xl border border-stone/40 bg-white shadow-sm">
+        <div className="mt-6 sm:mt-8">
+          <h3 className="mb-3 text-base font-semibold text-charcoal sm:mb-4 sm:text-lg">Recent Inquiries</h3>
+
+          {/* Table for md+ */}
+          <div className="hidden overflow-hidden rounded-xl border border-stone/40 bg-white shadow-sm md:block">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm">
                 <thead className="border-b border-stone/30 bg-stone/10">
@@ -153,6 +165,26 @@ function OverviewTab({
               </table>
             </div>
           </div>
+
+          {/* Card list for mobile */}
+          <div className="space-y-2 md:hidden">
+            {contacts.slice(0, 5).map((c) => (
+              <div key={c._id} className="flex items-center gap-3 rounded-xl border border-stone/30 bg-white p-3 shadow-sm">
+                <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-bold ${!c.isRead ? 'bg-gold/20 text-gold' : 'bg-stone/30 text-muted'}`}>
+                  {c.firstName[0]}{c.lastName?.[0] || ''}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-medium text-charcoal">{c.firstName} {c.lastName}</p>
+                  <p className="truncate text-xs text-muted">{interestLabel(c.interest)} &middot; {formatDateShort(c.createdAt)}</p>
+                </div>
+                {c.isRead ? (
+                  <span className="shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-medium text-green-700">Read</span>
+                ) : (
+                  <span className="shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-medium text-amber-700">New</span>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
@@ -179,35 +211,42 @@ function ContactsTab({
     return true;
   });
 
+  const unreadCount = contacts.filter((c) => !c.isRead).length;
+  const readCount = contacts.filter((c) => c.isRead).length;
+
   return (
     <div>
-      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h2 className="text-2xl font-semibold text-charcoal">Contact Inquiries</h2>
-        <div className="flex gap-2">
-          {(['all', 'unread', 'read'] as const).map((f) => (
+      <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
+        <h2 className="text-xl font-semibold text-charcoal sm:text-2xl">Contact Inquiries</h2>
+        <div className="flex w-full gap-1.5 sm:w-auto sm:gap-2">
+          {([
+            { key: 'all' as const, count: contacts.length },
+            { key: 'unread' as const, count: unreadCount },
+            { key: 'read' as const, count: readCount },
+          ]).map((f) => (
             <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={`rounded-lg px-4 py-2 text-xs font-medium uppercase tracking-wider transition-colors ${
-                filter === f
+              key={f.key}
+              onClick={() => setFilter(f.key)}
+              className={`flex-1 rounded-lg px-3 py-2 text-[11px] font-medium uppercase tracking-wider transition-colors sm:flex-none sm:px-4 sm:text-xs ${
+                filter === f.key
                   ? 'bg-charcoal text-white'
                   : 'bg-stone/20 text-muted hover:bg-stone/40'
               }`}
             >
-              {f} {f === 'all' ? `(${contacts.length})` : f === 'unread' ? `(${contacts.filter((c) => !c.isRead).length})` : `(${contacts.filter((c) => c.isRead).length})`}
+              {f.key} ({f.count})
             </button>
           ))}
         </div>
       </div>
 
       {filtered.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-xl border border-stone/40 bg-white py-16 text-center">
-          <Users className="mb-4 h-12 w-12 text-stone" />
-          <p className="text-lg font-medium text-charcoal">No inquiries yet</p>
+        <div className="flex flex-col items-center justify-center rounded-xl border border-stone/40 bg-white py-12 text-center sm:py-16">
+          <Users className="mb-3 h-10 w-10 text-stone sm:mb-4 sm:h-12 sm:w-12" />
+          <p className="text-base font-medium text-charcoal sm:text-lg">No inquiries yet</p>
           <p className="text-sm text-muted">Contact submissions will appear here.</p>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-2 sm:space-y-3">
           {filtered.map((c) => (
             <div
               key={c._id}
@@ -216,11 +255,11 @@ function ContactsTab({
               }`}
             >
               <div
-                className="flex cursor-pointer items-center gap-4 px-5 py-4"
+                className="flex cursor-pointer items-center gap-3 px-3 py-3 sm:gap-4 sm:px-5 sm:py-4"
                 onClick={() => setExpanded(expanded === c._id ? null : c._id)}
               >
                 <div
-                  className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
+                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-bold sm:h-10 sm:w-10 sm:text-sm ${
                     !c.isRead ? 'bg-gold/20 text-gold' : 'bg-stone/30 text-muted'
                   }`}
                 >
@@ -228,41 +267,52 @@ function ContactsTab({
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
-                    <p className="font-medium text-charcoal">
+                    <p className="truncate text-sm font-medium text-charcoal sm:text-base">
                       {c.firstName} {c.lastName}
                     </p>
                     {!c.isRead && (
-                      <span className="rounded-full bg-gold px-2 py-0.5 text-[10px] font-bold uppercase text-white">
+                      <span className="shrink-0 rounded-full bg-gold px-1.5 py-0.5 text-[9px] font-bold uppercase text-white sm:px-2 sm:text-[10px]">
                         New
                       </span>
                     )}
                   </div>
-                  <p className="truncate text-sm text-muted">
-                    {interestLabel(c.interest)} &middot; {c.email}
+                  <p className="truncate text-xs text-muted sm:text-sm">
+                    {interestLabel(c.interest)} &middot; {formatDateShort(c.createdAt)}
                   </p>
                 </div>
-                <span className="hidden shrink-0 text-xs text-muted sm:block">{formatDate(c.createdAt)}</span>
+                <div className="flex shrink-0 items-center gap-2">
+                  <span className="hidden text-xs text-muted lg:block">{formatDate(c.createdAt)}</span>
+                  {expanded === c._id ? (
+                    <ChevronUp className="h-4 w-4 text-muted" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4 text-muted" />
+                  )}
+                </div>
               </div>
 
               {expanded === c._id && (
-                <div className="border-t border-stone/20 px-5 py-5">
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="border-t border-stone/20 px-3 py-4 sm:px-5 sm:py-5">
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+                    {c.email && (
+                      <div className="flex items-center gap-2 text-sm">
+                        <Mail className="h-4 w-4 shrink-0 text-muted" />
+                        <a href={`mailto:${c.email}`} className="truncate text-charcoal hover:text-gold">
+                          {c.email}
+                        </a>
+                      </div>
+                    )}
                     <div className="flex items-center gap-2 text-sm">
-                      <Mail className="h-4 w-4 text-muted" />
-                      <a href={`mailto:${c.email}`} className="text-charcoal hover:text-gold">
-                        {c.email}
-                      </a>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <Phone className="h-4 w-4 text-muted" />
+                      <Phone className="h-4 w-4 shrink-0 text-muted" />
                       <a href={`tel:${c.phone}`} className="text-charcoal hover:text-gold">
                         {c.phone}
                       </a>
                     </div>
                   </div>
 
+                  <p className="mt-3 text-xs text-muted sm:hidden">{formatDate(c.createdAt)}</p>
+
                   {c.message && (
-                    <div className="mt-4 rounded-lg bg-stone/10 p-4">
+                    <div className="mt-3 rounded-lg bg-stone/10 p-3 sm:mt-4 sm:p-4">
                       <p className="mb-1 text-[10px] font-medium uppercase tracking-widest text-muted">Message</p>
                       <p className="text-sm text-charcoal">{c.message}</p>
                     </div>
@@ -272,7 +322,7 @@ function ContactsTab({
                     <p className="mt-3 text-xs text-gold">Requested digital brochure</p>
                   )}
 
-                  <div className="mt-4 flex gap-2">
+                  <div className="mt-3 flex flex-wrap gap-2 sm:mt-4">
                     {!c.isRead && (
                       <button
                         onClick={(e) => { e.stopPropagation(); onMarkRead(c._id); }}
@@ -342,11 +392,11 @@ function GalleryTab({
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-2xl font-semibold text-charcoal">Gallery Management</h2>
+      <div className="mb-4 flex items-center justify-between sm:mb-6">
+        <h2 className="text-xl font-semibold text-charcoal sm:text-2xl">Gallery</h2>
         <button
           onClick={() => setShowForm(!showForm)}
-          className="inline-flex items-center gap-2 rounded-lg bg-charcoal px-4 py-2.5 text-xs font-medium uppercase tracking-wider text-white transition-colors hover:bg-gold"
+          className="inline-flex items-center gap-1.5 rounded-lg bg-charcoal px-3 py-2 text-[11px] font-medium uppercase tracking-wider text-white transition-colors hover:bg-gold sm:gap-2 sm:px-4 sm:py-2.5 sm:text-xs"
         >
           {showForm ? <X className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
           {showForm ? 'Cancel' : 'Add Image'}
@@ -356,11 +406,11 @@ function GalleryTab({
       {showForm && (
         <form
           onSubmit={handleSubmit}
-          className="mb-8 rounded-xl border border-stone/40 bg-white p-6 shadow-sm"
+          className="mb-6 rounded-xl border border-stone/40 bg-white p-4 shadow-sm sm:mb-8 sm:p-6"
         >
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
             <div>
-              <label className="mb-2 block text-[10px] font-medium uppercase tracking-widest text-muted">
+              <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-widest text-muted sm:mb-2">
                 Title *
               </label>
               <input
@@ -368,25 +418,25 @@ function GalleryTab({
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required
-                className="w-full rounded-lg border border-stone/40 px-4 py-2.5 text-sm text-charcoal focus:border-gold focus:outline-none"
+                className="w-full rounded-lg border border-stone/40 px-3 py-2.5 text-sm text-charcoal focus:border-gold focus:outline-none sm:px-4"
                 placeholder="Image title"
               />
             </div>
             <div>
-              <label className="mb-2 block text-[10px] font-medium uppercase tracking-widest text-muted">
+              <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-widest text-muted sm:mb-2">
                 Category
               </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full rounded-lg border border-stone/40 px-4 py-2.5 text-sm text-charcoal focus:border-gold focus:outline-none"
+                className="w-full rounded-lg border border-stone/40 px-3 py-2.5 text-sm text-charcoal focus:border-gold focus:outline-none sm:px-4"
               >
                 <option value="main">Main Gallery</option>
                 <option value="extra">Extra / More Perspectives</option>
               </select>
             </div>
-            <div className="md:col-span-2">
-              <label className="mb-2 block text-[10px] font-medium uppercase tracking-widest text-muted">
+            <div className="sm:col-span-2">
+              <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-widest text-muted sm:mb-2">
                 Image URL *
               </label>
               <input
@@ -394,33 +444,33 @@ function GalleryTab({
                 value={src}
                 onChange={(e) => setSrc(e.target.value)}
                 required
-                className="w-full rounded-lg border border-stone/40 px-4 py-2.5 text-sm text-charcoal focus:border-gold focus:outline-none"
-                placeholder="https://example.com/image.jpg or /image-name.png"
+                className="w-full rounded-lg border border-stone/40 px-3 py-2.5 text-sm text-charcoal focus:border-gold focus:outline-none sm:px-4"
+                placeholder="https://example.com/image.jpg"
               />
-              <p className="mt-1 text-xs text-muted">
-                Use a full URL (https://...) or a path to an image in the public folder (e.g. /image.png)
+              <p className="mt-1 text-[11px] text-muted">
+                Full URL (https://...) or public folder path (/image.png)
               </p>
             </div>
-            <div className="md:col-span-2">
-              <label className="mb-2 block text-[10px] font-medium uppercase tracking-widest text-muted">
+            <div className="sm:col-span-2">
+              <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-widest text-muted sm:mb-2">
                 Description
               </label>
               <input
                 type="text"
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
-                className="w-full rounded-lg border border-stone/40 px-4 py-2.5 text-sm text-charcoal focus:border-gold focus:outline-none"
+                className="w-full rounded-lg border border-stone/40 px-3 py-2.5 text-sm text-charcoal focus:border-gold focus:outline-none sm:px-4"
                 placeholder="Short description"
               />
             </div>
             <div>
-              <label className="mb-2 block text-[10px] font-medium uppercase tracking-widest text-muted">
+              <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-widest text-muted sm:mb-2">
                 Aspect Ratio
               </label>
               <select
                 value={aspect}
                 onChange={(e) => setAspect(e.target.value)}
-                className="w-full rounded-lg border border-stone/40 px-4 py-2.5 text-sm text-charcoal focus:border-gold focus:outline-none"
+                className="w-full rounded-lg border border-stone/40 px-3 py-2.5 text-sm text-charcoal focus:border-gold focus:outline-none sm:px-4"
               >
                 <option value="aspect-[16/9]">16:9 (Landscape)</option>
                 <option value="aspect-[4/5]">4:5 (Portrait)</option>
@@ -433,14 +483,14 @@ function GalleryTab({
 
           {src && (
             <div className="mt-4">
-              <img src={src} alt="Preview" className="h-40 rounded-lg object-cover" onError={(e) => (e.currentTarget.style.display = 'none')} />
+              <img src={src} alt="Preview" className="h-32 rounded-lg object-cover sm:h-40" onError={(e) => (e.currentTarget.style.display = 'none')} />
             </div>
           )}
 
           <button
             type="submit"
             disabled={uploading || !src || !title}
-            className="mt-5 inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-charcoal transition-colors hover:bg-gold/80 disabled:opacity-50"
+            className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-charcoal transition-colors hover:bg-gold/80 disabled:opacity-50 sm:mt-5 sm:w-auto"
           >
             {uploading ? (
               <>
@@ -456,19 +506,19 @@ function GalleryTab({
       )}
 
       {gallery.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-xl border border-stone/40 bg-white py-16 text-center">
-          <Image className="mb-4 h-12 w-12 text-stone" />
-          <p className="text-lg font-medium text-charcoal">No gallery images</p>
-          <p className="text-sm text-muted">Upload images to populate the gallery.</p>
+        <div className="flex flex-col items-center justify-center rounded-xl border border-stone/40 bg-white py-12 text-center sm:py-16">
+          <Image className="mb-3 h-10 w-10 text-stone sm:mb-4 sm:h-12 sm:w-12" />
+          <p className="text-base font-medium text-charcoal sm:text-lg">No gallery images</p>
+          <p className="text-sm text-muted">Add images to populate the gallery.</p>
         </div>
       ) : (
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           {mainImages.length > 0 && (
             <div>
-              <h3 className="mb-4 text-sm font-medium uppercase tracking-widest text-muted">
+              <h3 className="mb-3 text-xs font-medium uppercase tracking-widest text-muted sm:mb-4 sm:text-sm">
                 Main Gallery ({mainImages.length})
               </h3>
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+              <div className="grid grid-cols-1 gap-3 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-4">
                 {mainImages.map((img) => (
                   <GalleryCard key={img._id} image={img} onDelete={onDelete} />
                 ))}
@@ -478,10 +528,10 @@ function GalleryTab({
 
           {extraImages.length > 0 && (
             <div>
-              <h3 className="mb-4 text-sm font-medium uppercase tracking-widest text-muted">
+              <h3 className="mb-3 text-xs font-medium uppercase tracking-widest text-muted sm:mb-4 sm:text-sm">
                 More Perspectives ({extraImages.length})
               </h3>
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+              <div className="grid grid-cols-1 gap-3 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-4">
                 {extraImages.map((img) => (
                   <GalleryCard key={img._id} image={img} onDelete={onDelete} />
                 ))}
@@ -505,7 +555,7 @@ function GalleryCard({ image, onDelete }: { image: GalleryItem; onDelete: (id: s
         />
       </div>
       <div className="p-3">
-        <p className="text-sm font-medium text-charcoal">{image.title}</p>
+        <p className="truncate text-sm font-medium text-charcoal">{image.title}</p>
         {image.desc && <p className="mt-0.5 truncate text-xs text-muted">{image.desc}</p>}
         <div className="mt-2 flex items-center justify-between">
           <span className="rounded-md bg-stone/20 px-2 py-0.5 text-[10px] font-medium uppercase text-muted">
@@ -513,9 +563,9 @@ function GalleryCard({ image, onDelete }: { image: GalleryItem; onDelete: (id: s
           </span>
           <button
             onClick={() => onDelete(image._id)}
-            className="rounded-md p-1 text-muted transition-colors hover:bg-red-50 hover:text-red-500"
+            className="rounded-md p-1.5 text-muted transition-colors hover:bg-red-50 hover:text-red-500"
           >
-            <Trash2 className="h-3.5 w-3.5" />
+            <Trash2 className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
           </button>
         </div>
       </div>
@@ -532,6 +582,7 @@ export function AdminDashboard() {
   const [gallery, setGallery] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const fetchData = useCallback(async () => {
     const token = getToken();
@@ -620,6 +671,8 @@ export function AdminDashboard() {
     { id: 'gallery', label: 'Gallery', icon: Image },
   ];
 
+  const unreadBadge = contacts.filter((c) => !c.isRead).length;
+
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-warm-white">
@@ -632,40 +685,44 @@ export function AdminDashboard() {
     <div className="min-h-screen bg-warm-white">
       {/* Header */}
       <header className="sticky top-0 z-40 border-b border-stone/40 bg-white/90 backdrop-blur-md">
-        <div className="mx-auto flex items-center justify-between px-6 py-4 lg:px-8">
-          <div className="flex items-center gap-3">
-            <h1 className="font-serif text-xl text-charcoal">THE SKY49</h1>
-            <span className="rounded-md bg-gold/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-gold">
+        <div className="mx-auto flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <h1 className="font-serif text-lg text-charcoal sm:text-xl">THE SKY49</h1>
+            <span className="rounded-md bg-gold/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-gold sm:px-2 sm:text-[10px]">
               Admin
             </span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             <a
               href="/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium text-muted transition-colors hover:bg-stone/20 hover:text-charcoal"
+              className="inline-flex items-center gap-1.5 rounded-lg px-2 py-2 text-xs font-medium text-muted transition-colors hover:bg-stone/20 hover:text-charcoal sm:px-3"
+              title="View Site"
             >
-              <Home className="h-3.5 w-3.5" /> View Site
+              <Home className="h-4 w-4" />
+              <span className="hidden sm:inline">View Site</span>
             </a>
             <button
               onClick={handleLogout}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-stone/10 px-3 py-2 text-xs font-medium text-muted transition-colors hover:bg-red-50 hover:text-red-600"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-stone/10 px-2 py-2 text-xs font-medium text-muted transition-colors hover:bg-red-50 hover:text-red-600 sm:px-3"
+              title="Sign Out"
             >
-              <LogOut className="h-3.5 w-3.5" /> Sign Out
+              <LogOut className="h-4 w-4" />
+              <span className="hidden sm:inline">Sign Out</span>
             </button>
           </div>
         </div>
       </header>
 
-      <div className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
-        {/* Tab Navigation */}
-        <nav className="mb-8 flex gap-1 rounded-xl border border-stone/30 bg-white p-1.5 shadow-sm">
+      <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 sm:py-8 lg:px-8">
+        {/* Tab Navigation - desktop */}
+        <nav className="mb-6 hidden gap-1 rounded-xl border border-stone/30 bg-white p-1.5 shadow-sm sm:mb-8 sm:flex">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => setTab(item.id)}
-              className={`flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium transition-all ${
+              className={`flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-all sm:px-5 ${
                 tab === item.id
                   ? 'bg-charcoal text-white shadow-sm'
                   : 'text-muted hover:bg-stone/20 hover:text-charcoal'
@@ -673,32 +730,57 @@ export function AdminDashboard() {
             >
               <item.icon className="h-4 w-4" />
               {item.label}
-              {item.id === 'contacts' && contacts.filter((c) => !c.isRead).length > 0 && (
+              {item.id === 'contacts' && unreadBadge > 0 && (
                 <span className="ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-gold text-[10px] font-bold text-white">
-                  {contacts.filter((c) => !c.isRead).length}
+                  {unreadBadge}
                 </span>
               )}
             </button>
           ))}
         </nav>
 
+        {/* Tab Navigation - mobile bottom bar */}
+        <div className="fixed inset-x-0 bottom-0 z-50 border-t border-stone/30 bg-white/95 backdrop-blur-md sm:hidden">
+          <div className="flex">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setTab(item.id)}
+                className={`relative flex flex-1 flex-col items-center gap-0.5 py-2.5 text-[10px] font-medium uppercase tracking-wider transition-colors ${
+                  tab === item.id ? 'text-gold' : 'text-muted'
+                }`}
+              >
+                <item.icon className="h-5 w-5" />
+                {item.label}
+                {item.id === 'contacts' && unreadBadge > 0 && (
+                  <span className="absolute right-1/4 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-gold text-[8px] font-bold text-white">
+                    {unreadBadge}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Tab Content */}
-        {tab === 'overview' && <OverviewTab contacts={contacts} gallery={gallery} />}
-        {tab === 'contacts' && (
-          <ContactsTab
-            contacts={contacts}
-            onMarkRead={handleMarkRead}
-            onDelete={handleDeleteContact}
-          />
-        )}
-        {tab === 'gallery' && (
-          <GalleryTab
-            gallery={gallery}
-            onAddImage={handleAddImage}
-            onDelete={handleDeleteImage}
-            uploading={uploading}
-          />
-        )}
+        <div className="pb-20 sm:pb-0">
+          {tab === 'overview' && <OverviewTab contacts={contacts} gallery={gallery} />}
+          {tab === 'contacts' && (
+            <ContactsTab
+              contacts={contacts}
+              onMarkRead={handleMarkRead}
+              onDelete={handleDeleteContact}
+            />
+          )}
+          {tab === 'gallery' && (
+            <GalleryTab
+              gallery={gallery}
+              onAddImage={handleAddImage}
+              onDelete={handleDeleteImage}
+              uploading={uploading}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
