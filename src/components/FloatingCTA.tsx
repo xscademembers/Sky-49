@@ -31,7 +31,8 @@ export function FloatingCTA() {
         </div>
         <div className="w-[1px] h-8 bg-stone"></div>
         <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          type="button"
+          onClick={() => document.getElementById('hero-eoi')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
           className="text-sm font-medium uppercase tracking-wider text-charcoal transition-colors hover:text-gold"
         >
           Inquire Now

@@ -51,8 +51,8 @@ function HeroForm() {
 
   return (
     <>
-      <h3 className="font-serif text-2xl mb-2 text-charcoal">Request a EOI</h3>
-      <p className="text-sm text-muted mb-6">Enter before the address appreciates.</p>
+      <h3 className="mb-2 font-serif text-xl text-charcoal sm:text-2xl">Request a EOI</h3>
+      <p className="mb-5 text-sm text-muted sm:mb-6">Enter before the address appreciates.</p>
 
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div>
@@ -62,7 +62,7 @@ function HeroForm() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            className="w-full bg-white/50 border border-stone/50 px-4 py-3 rounded-none focus:outline-none focus:border-gold transition-colors font-light text-sm"
+            className="w-full rounded-none border border-stone/50 bg-white/50 px-4 py-3 text-sm font-light transition-colors focus:border-gold focus:outline-none"
           />
         </div>
         <div>
@@ -72,7 +72,7 @@ function HeroForm() {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             required
-            className="w-full bg-white/50 border border-stone/50 px-4 py-3 rounded-none focus:outline-none focus:border-gold transition-colors font-light text-sm"
+            className="w-full rounded-none border border-stone/50 bg-white/50 px-4 py-3 text-sm font-light transition-colors focus:border-gold focus:outline-none"
           />
         </div>
         {status === 'error' && (
@@ -81,17 +81,17 @@ function HeroForm() {
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="w-full bg-charcoal text-white px-6 py-4 flex items-center justify-between group hover:bg-gold transition-colors duration-500 disabled:opacity-60"
+          className="group flex w-full items-center justify-between bg-charcoal px-6 py-4 text-white transition-colors duration-500 hover:bg-gold disabled:opacity-60"
         >
           {status === 'loading' ? (
             <>
-              <span className="tracking-wide text-xs font-medium">Submitting...</span>
-              <Loader2 className="w-4 h-4 animate-spin" />
+              <span className="text-xs font-medium tracking-wide">Submitting...</span>
+              <Loader2 className="h-4 w-4 animate-spin" />
             </>
           ) : (
             <>
-              <span className="tracking-wide text-xs font-medium">Register EOI Now</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <span className="text-xs font-medium tracking-wide">Register EOI Now</span>
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </>
           )}
         </button>
@@ -102,84 +102,96 @@ function HeroForm() {
 
 export function Hero() {
   return (
-    <section className="relative h-[100svh] w-full flex items-center justify-center overflow-hidden">
-      {/* Background Image/Video with Parallax */}
-      <motion.div 
-        className="absolute inset-0 w-full h-full"
+    <section
+      id="hero-eoi"
+      className="relative flex min-h-[100svh] w-full flex-col overflow-x-hidden md:h-[100svh] md:overflow-hidden"
+    >
+      {/* Background — full section height */}
+      <motion.div
+        className="absolute inset-0 h-full min-h-[100svh] w-full md:min-h-0"
         initial={{ scale: 1.1 }}
         animate={{ scale: 1 }}
-        transition={{ duration: 2, ease: "easeOut" }}
+        transition={{ duration: 2, ease: 'easeOut' }}
       >
-        <img 
-          src="/2000-x-1333-1024x682.png" 
-          alt="SKY49 Luxury Residence" 
-          className="w-full h-full object-cover object-center"
+        <img
+          src="/2000-x-1333-1024x682.png"
+          alt="SKY49 Luxury Residence"
+          className="h-full min-h-[50svh] w-full object-cover object-center md:min-h-0 md:h-full"
         />
-        {/* Cinematic Light Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-warm-white/40 via-warm-white/20 to-warm-white/90 mix-blend-overlay"></div>
-        <div className="absolute inset-0 bg-white/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-warm-white/40 via-warm-white/20 to-warm-white/90 mix-blend-overlay" />
+        <div className="absolute inset-0 bg-white/10" />
+        {/* Stronger fade on mobile so stacked copy + form read clearly */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-warm-white/30 to-warm-white/85 md:hidden" />
       </motion.div>
 
-      <div className="relative z-10 container mx-auto px-6 md:px-12 h-full flex flex-col justify-center mt-16 md:mt-0">
-        <div className="max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-            className="mb-6 flex items-center gap-3 md:gap-4"
-          >
-            <div className="h-px w-8 shrink-0 bg-gold md:w-12" aria-hidden />
-            <span className="inline-block bg-gold/45 px-5 py-2.5 font-sans text-[11px] font-semibold uppercase tracking-[0.28em] text-charcoal sm:px-7 sm:text-xs md:px-8 md:text-[13px]">
-              THE SKY49 TELLAPUR
-            </span>
-          </motion.div>
+      {/* Mobile: headline + tagline in flow (no overlap with form) */}
+      <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-1 flex-col px-4 pb-2 pt-20 sm:px-6 md:container md:px-12 md:pb-0 md:pt-0">
+        <div className="flex min-h-0 flex-1 flex-col justify-start md:absolute md:inset-0 md:justify-center md:px-12">
+          <div className="w-full max-w-full shrink-0">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+              className="mb-4 flex items-center gap-3 md:mb-6 md:gap-4"
+            >
+              <div className="h-px w-8 shrink-0 bg-gold md:w-12" aria-hidden />
+              <span className="inline-block bg-gold/45 px-4 py-2 font-sans text-[10px] font-semibold uppercase tracking-[0.22em] text-charcoal sm:px-6 sm:text-[11px] md:px-8 md:text-[13px]">
+                THE SKY49 TELLAPUR
+              </span>
+            </motion.div>
 
-          <motion.h1 
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-            className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[1.1] text-charcoal mb-8 text-balance"
-          >
-            Hyderabad’s Most <br className="hidden md:block" />
-            <span className="italic text-gold">Elegant</span> Skyline
-          </motion.h1>
+            <motion.h1
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+              className="mb-4 text-balance font-serif text-4xl leading-[1.12] text-charcoal sm:mb-5 sm:text-5xl md:mb-8 md:text-7xl lg:text-8xl"
+            >
+              Hyderabad’s Most <br className="hidden md:block" />
+              <span className="italic text-gold">Elegant</span> Skyline
+            </motion.h1>
 
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-            className="text-lg md:text-xl max-w-2xl font-light leading-relaxed mb-12 text-charcoal"
-          >
-            <span className="bg-[#efe8d4]/95 px-1.5 py-0.5 box-decoration-clone [-webkit-box-decoration-break:clone]">
-              Ultra-luxury 3 & 4 BHK residences at Tellapur, crafted for prestige living, legacy wealth, and timeless appreciation.
-            </span>
-          </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+              className="max-w-full text-base font-light leading-relaxed text-charcoal sm:text-lg md:mb-0 md:max-w-2xl md:text-xl"
+            >
+              <span className="box-decoration-clone bg-[#efe8d4]/95 px-1.5 py-1 [-webkit-box-decoration-break:clone]">
+                Ultra-luxury 3 &amp; 4 BHK residences at Tellapur, crafted for prestige living, legacy wealth, and
+                timeless appreciation.
+              </span>
+            </motion.p>
+          </div>
         </div>
       </div>
 
-      {/* Floating Glass Lead Form */}
-      <motion.div 
+      {/* EOI form: stacked below copy on mobile; floating card on md+ */}
+      <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 1, ease: [0.25, 0.1, 0.25, 1] }}
-        className="absolute bottom-0 right-0 md:bottom-12 md:right-12 w-full md:w-[400px] glass-panel p-8 md:rounded-2xl z-20"
+        className="relative z-20 mt-2 w-full px-4 pb-8 sm:px-6 md:absolute md:bottom-12 md:right-12 md:mt-0 md:w-[400px] md:max-w-[calc(100%-6rem)] md:rounded-2xl md:px-0 md:pb-0"
       >
-        <HeroForm />
+        <div className="glass-panel rounded-t-2xl border border-white/60 p-6 shadow-xl sm:p-8 md:rounded-2xl md:border-white/50">
+          <HeroForm />
+        </div>
       </motion.div>
 
-      {/* Scroll Indicator */}
-      <motion.div 
+      {/* Scroll indicator — desktop only; hidden on mobile to avoid clash with form */}
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-8 left-6 md:left-12 flex flex-col items-center gap-4 z-10"
+        className="absolute bottom-8 left-6 z-10 hidden flex-col items-center gap-4 md:left-12 md:flex"
       >
-        <span className="text-[10px] uppercase tracking-[0.2em] text-charcoal/60 rotate-90 origin-left translate-x-2">Scroll</span>
-        <div className="w-[1px] h-16 bg-charcoal/20 relative overflow-hidden">
-          <motion.div 
-            className="absolute top-0 left-0 w-full h-1/2 bg-gold"
+        <span className="origin-left translate-x-2 rotate-90 text-[10px] uppercase tracking-[0.2em] text-charcoal/60">
+          Scroll
+        </span>
+        <div className="relative h-16 w-[1px] overflow-hidden bg-charcoal/20">
+          <motion.div
+            className="absolute left-0 top-0 h-1/2 w-full bg-gold"
             animate={{ y: ['-100%', '200%'] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: 'linear' }}
           />
         </div>
       </motion.div>

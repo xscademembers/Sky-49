@@ -144,16 +144,16 @@ export function Gallery() {
     <section className="relative overflow-hidden bg-warm-white py-12 md:py-20">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" aria-hidden />
 
-      <div className="container relative mx-auto px-6 md:px-12">
-        <div className="mb-12 flex flex-col items-end gap-8 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-2xl">
+      <div className="container relative mx-auto px-4 sm:px-6 md:px-12">
+        <div className="mb-10 flex flex-col items-start gap-6 md:mb-12 md:flex-row md:items-end md:justify-between md:gap-8">
+          <div className="w-full max-w-2xl text-left">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mb-6 flex items-center gap-4"
+              className="mb-4 flex items-center justify-start gap-3 sm:mb-6 sm:gap-4"
             >
-              <div className="h-[1px] w-8 bg-gold md:w-10" />
+              <div className="h-[1px] w-8 shrink-0 bg-gold sm:w-10" aria-hidden />
               <span className="text-xs font-medium uppercase tracking-[0.2em] text-muted">Gallery</span>
             </motion.div>
 
@@ -162,7 +162,7 @@ export function Gallery() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="font-serif text-4xl leading-tight text-charcoal md:text-5xl lg:text-7xl"
+              className="text-balance font-serif text-4xl leading-[1.15] text-charcoal md:text-5xl lg:text-7xl"
             >
               A Visual <br />
               <span className="italic text-gold">Symphony</span>
@@ -174,13 +174,16 @@ export function Gallery() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
+            className="w-full shrink-0 md:w-auto md:self-end"
           >
             <Link
               to="/gallery"
-              className="group inline-flex items-center gap-4 text-sm font-medium uppercase tracking-widest text-charcoal transition-colors hover:text-gold"
+              className="group inline-flex w-full items-center justify-start gap-3 sm:gap-4 md:inline-flex md:w-auto"
             >
-              <span>View Full Gallery</span>
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-stone transition-colors group-hover:border-gold">
+              <span className="text-sm font-medium uppercase tracking-widest text-charcoal transition-colors group-hover:text-gold">
+                View Full Gallery
+              </span>
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-stone transition-colors group-hover:border-gold sm:h-12 sm:w-12">
                 <ArrowRight className="h-4 w-4" />
               </div>
             </Link>
