@@ -2,8 +2,8 @@ import { motion } from 'motion/react';
 
 export function Story() {
   return (
-    <section className="py-12 md:py-20 bg-warm-white relative">
-      <div className="container mx-auto px-6 md:px-12">
+    <section className="relative bg-warm-white py-12 md:py-20">
+      <div className="container mx-auto max-w-full px-4 sm:px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
           
           <motion.div 
@@ -18,7 +18,7 @@ export function Story() {
               <span className="uppercase tracking-[0.2em] text-xs font-medium text-muted">The Architecture</span>
             </div>
             
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-charcoal leading-tight mb-8">
+            <h2 className="mb-8 text-balance font-serif text-4xl leading-tight text-charcoal md:text-5xl lg:text-6xl">
               A Monument to <br />
               <span className="italic text-gold">Modern Elegance</span>
             </h2>

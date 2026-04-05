@@ -3,8 +3,8 @@ import { MapPin, Building, Briefcase, Plane } from 'lucide-react';
 
 export function Location() {
   return (
-    <section className="py-12 md:py-20 bg-stone/20 relative overflow-hidden">
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
+    <section className="relative overflow-hidden bg-stone/20 py-12 md:py-20">
+      <div className="container relative z-10 mx-auto max-w-full px-4 sm:px-6 md:px-12">
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           
@@ -66,7 +66,7 @@ export function Location() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2 }}
-            className="relative h-[600px] w-full rounded-2xl overflow-hidden glass-panel p-2"
+            className="relative h-[min(420px,65svh)] min-h-[260px] w-full overflow-hidden rounded-2xl glass-panel p-2 md:h-[600px] md:min-h-0"
           >
             {/* Abstract Premium Map Representation */}
             <div className="w-full h-full bg-[#EFECE5] rounded-xl relative overflow-hidden">

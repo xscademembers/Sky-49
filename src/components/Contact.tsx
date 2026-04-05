@@ -48,7 +48,7 @@ export function Contact() {
       className="relative overflow-hidden bg-stone/10 py-12 md:py-20 scroll-mt-24"
       id="contact"
     >
-      <div className="container relative z-10 mx-auto px-6 md:px-12">
+      <div className="container relative z-10 mx-auto max-w-full px-4 sm:px-6 md:px-12">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-14">
           <motion.div
             initial={{ opacity: 0, x: -40 }}
@@ -61,7 +61,7 @@ export function Contact() {
               <span className="text-xs font-medium uppercase tracking-[0.2em] text-muted">Inquire</span>
             </div>
 
-            <h2 className="mb-8 font-serif text-4xl leading-tight text-charcoal md:text-5xl lg:text-6xl">
+            <h2 className="mb-8 text-balance font-serif text-4xl leading-tight text-charcoal md:text-5xl lg:text-6xl">
               Register Your <br />
               <span className="italic text-gold">Interest</span>
             </h2>
@@ -109,7 +109,7 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative rounded-[2rem] border border-stone/30 bg-white p-8 shadow-2xl md:p-12"
+            className="relative rounded-[2rem] border border-stone/30 bg-white p-6 shadow-2xl sm:p-8 md:p-12"
           >
             <div className="pointer-events-none absolute -right-6 -top-6 h-32 w-32 rounded-full bg-gold/10 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-6 -left-6 h-40 w-40 rounded-full bg-stone/50 blur-3xl" />

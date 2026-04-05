@@ -113,11 +113,18 @@ export function Hero() {
         animate={{ scale: 1 }}
         transition={{ duration: 2, ease: 'easeOut' }}
       >
-        <img
-          src="/2000-x-1333-1024x682.png"
-          alt="SKY49 Luxury Residence"
-          className="h-full min-h-[50svh] w-full object-cover object-center md:min-h-0 md:h-full"
-        />
+        <video
+          className="h-full min-h-[50svh] w-full object-cover object-center md:h-full md:min-h-0"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          poster="/2000-x-1333-1024x682.png"
+          aria-hidden={true}
+        >
+          <source src="/Hero%20Bg%20video.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-gradient-to-b from-warm-white/40 via-warm-white/20 to-warm-white/90 mix-blend-overlay" />
         <div className="absolute inset-0 bg-white/10" />
         {/* Stronger fade on mobile so stacked copy + form read clearly */}
@@ -140,15 +147,17 @@ export function Hero() {
               </span>
             </motion.div>
 
-            <motion.h1
+            <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-              className="mb-4 text-balance font-serif text-4xl leading-[1.12] text-charcoal sm:mb-5 sm:text-5xl md:mb-8 md:text-7xl lg:text-8xl"
+              className="mb-4 w-full max-w-4xl rounded-xl border border-white/25 bg-[#efe8d4]/22 px-4 py-3 shadow-[0_8px_32px_rgba(31,31,31,0.04)] backdrop-blur-xl sm:mb-5 sm:rounded-2xl sm:px-5 sm:py-4 md:mb-8 md:px-6 md:py-5"
             >
-              Hyderabad’s Most <br className="hidden md:block" />
-              <span className="italic text-gold">Elegant</span> Skyline
-            </motion.h1>
+              <h1 className="text-balance font-serif text-4xl leading-[1.12] text-charcoal [text-shadow:0_1px_2px_rgba(255,255,255,0.55),0_0_1px_rgba(31,31,31,0.15)] sm:text-5xl md:text-7xl lg:text-8xl">
+                Hyderabad’s Most <br className="hidden md:block" />
+                <span className="italic text-gold">Elegant</span> Skyline
+              </h1>
+            </motion.div>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}

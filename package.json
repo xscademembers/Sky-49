@@ -7,7 +7,8 @@
     "node": ">=20"
   },
   "scripts": {
-    "dev": "vite --port=3000 --host=0.0.0.0",
+    "dev": "concurrently -k -n api,vite -c yellow,cyan \"npm run server\" \"npm run dev:vite\"",
+    "dev:vite": "vite --port=3000 --host=0.0.0.0",
     "server": "tsx server/index.ts",
     "build": "vite build",
     "preview": "vite preview",
@@ -38,6 +39,7 @@
     "@types/multer": "^2.1.0",
     "@types/node": "^22.14.0",
     "autoprefixer": "^10.4.21",
+    "concurrently": "^9.2.1",
     "tailwindcss": "^4.1.14",
     "tsx": "^4.21.0",
     "typescript": "~5.8.2",

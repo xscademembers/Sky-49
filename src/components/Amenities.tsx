@@ -49,7 +49,7 @@ const AmenityRow: React.FC<{ amenity: Amenity; index: number }> = ({ amenity, in
       }`}
     >
       {/* Image container — parallax on wrapper; plain <img> for reliable loading */}
-      <div className="relative h-[50vh] w-full overflow-hidden rounded-xl bg-stone/40 shadow-2xl md:h-[70vh] lg:w-8/12 lg:rounded-none">
+      <div className="relative h-[42vh] min-h-[220px] w-full overflow-hidden rounded-xl bg-stone/40 shadow-2xl sm:h-[50vh] md:h-[70vh] lg:w-8/12 lg:rounded-none">
         <motion.div style={{ y }} className="absolute inset-0 h-[115%] w-full -top-[7.5%]">
           <img
             src={amenity.img}
@@ -68,7 +68,7 @@ const AmenityRow: React.FC<{ amenity: Amenity; index: number }> = ({ amenity, in
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-100px' }}
         transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
-        className={`glass-panel relative z-10 w-[90%] p-8 md:p-16 -mt-20 lg:mt-0 lg:w-5/12 ${
+        className={`glass-panel relative z-10 -mt-16 w-[94%] max-w-lg p-6 sm:-mt-20 sm:w-[90%] sm:p-8 md:p-12 lg:mt-0 lg:w-5/12 lg:max-w-none lg:p-16 ${
           isEven ? 'lg:-ml-32' : 'lg:-mr-32'
         }`}
       >
@@ -93,10 +93,10 @@ const AmenityRow: React.FC<{ amenity: Amenity; index: number }> = ({ amenity, in
 export function Amenities() {
   return (
     <section className="overflow-hidden bg-warm-white py-12 md:py-20">
-      <div className="container mx-auto px-6 md:px-12">
+      <div className="container mx-auto max-w-full px-4 sm:px-6 md:px-12">
         {/* Section Header */}
-        <div className="mb-14 flex flex-col items-end gap-8 md:flex-row md:justify-between">
-          <div className="max-w-2xl">
+        <div className="mb-14 flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between md:gap-8">
+          <div className="w-full max-w-2xl text-left">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -112,7 +112,7 @@ export function Amenities() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="font-serif text-4xl leading-tight text-charcoal md:text-5xl lg:text-6xl"
+              className="text-balance font-serif text-4xl leading-tight text-charcoal md:text-5xl lg:text-6xl"
             >
               Curated for the <br />
               <span className="italic text-gold">Connoisseurs of Life</span>
@@ -124,7 +124,7 @@ export function Amenities() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="max-w-md text-lg font-light text-muted"
+            className="w-full max-w-md text-base font-light text-muted sm:text-lg"
           >
             Experience hospitality-grade amenities that blur the line between a luxury resort and your daily residence.
           </motion.p>

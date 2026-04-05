@@ -30,18 +30,20 @@ export function GalleryPage() {
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden bg-warm-white">
       <header className="sticky top-0 z-40 border-b border-stone/40 bg-warm-white/90 backdrop-blur-md">
-        <div className="container mx-auto grid grid-cols-3 items-center px-6 py-4 md:px-12">
+        <div className="container mx-auto grid max-w-full grid-cols-[1fr_auto_1fr] items-center gap-2 px-4 py-3 sm:px-6 md:px-12 md:py-4">
           <Link
             to="/"
-            className="group inline-flex items-center gap-2 justify-self-start text-sm font-medium uppercase tracking-widest text-charcoal transition-colors hover:text-gold"
+            className="group inline-flex min-w-0 items-center gap-1.5 justify-self-start text-xs font-medium uppercase tracking-widest text-charcoal transition-colors hover:text-gold sm:gap-2 sm:text-sm"
           >
-            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
+            <ArrowLeft className="h-4 w-4 shrink-0 transition-transform group-hover:-translate-x-0.5" />
             Back
           </Link>
-          <span className="text-center font-serif text-lg text-charcoal md:text-xl">THE SKY49</span>
+          <span className="min-w-0 truncate text-center font-serif text-base text-charcoal sm:text-lg md:text-xl">
+            THE SKY49
+          </span>
           <Link
             to="/#contact"
-            className="justify-self-end text-sm font-medium uppercase tracking-widest text-charcoal transition-colors hover:text-gold"
+            className="justify-self-end text-xs font-medium uppercase tracking-widest text-charcoal transition-colors hover:text-gold sm:text-sm"
           >
             Inquire
           </Link>
@@ -51,7 +53,7 @@ export function GalleryPage() {
       <section className="relative overflow-hidden py-12 md:py-16">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
 
-        <div className="container relative mx-auto px-6 md:px-12">
+        <div className="container relative mx-auto max-w-full px-4 sm:px-6 md:px-12">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}

@@ -2,8 +2,8 @@ import { motion } from 'motion/react';
 
 export function Footer() {
   return (
-    <footer className="bg-warm-white pt-14 pb-10 border-t border-stone">
-      <div className="container mx-auto px-6 md:px-12">
+    <footer className="border-t border-stone bg-warm-white pb-10 pt-14">
+      <div className="container mx-auto max-w-full px-4 sm:px-6 md:px-12">
         
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mb-12">
           <div className="md:col-span-5">
@@ -53,9 +53,9 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-stone text-xs text-muted font-light">
-          <p>&copy; {new Date().getFullYear()} THE SKY49. All rights reserved.</p>
-          <div className="flex gap-6 mt-4 md:mt-0">
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-stone pt-8 text-center text-xs font-light text-muted md:flex-row md:text-left">
+          <p className="px-2">&copy; {new Date().getFullYear()} THE SKY49. All rights reserved.</p>
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 md:mt-0 md:justify-end">
             <a href="#" className="hover:text-charcoal transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-charcoal transition-colors">Terms of Service</a>
             <a href="#" className="hover:text-charcoal transition-colors">RERA Details</a>

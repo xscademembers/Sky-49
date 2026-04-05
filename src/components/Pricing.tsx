@@ -35,8 +35,8 @@ function CountUpRupee({
 
 export function Pricing() {
   return (
-    <section className="py-12 md:py-20 bg-stone/30 relative">
-      <div className="container mx-auto px-6 md:px-12">
+    <section className="relative bg-stone/30 py-12 md:py-20">
+      <div className="container mx-auto max-w-full px-4 sm:px-6 md:px-12">
         
         <div className="text-center max-w-3xl mx-auto mb-12">
           <motion.div 
@@ -70,12 +70,12 @@ export function Pricing() {
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="glass-panel p-8 relative overflow-hidden group"
+              className="glass-panel relative overflow-hidden p-6 sm:p-8 group"
             >
               <div className="absolute top-0 left-0 w-1 h-full bg-gold"></div>
               <p className="text-sm uppercase tracking-widest text-muted mb-2">Current Opportunity</p>
               <div className="flex items-baseline gap-2">
-                <CountUpRupee target={7199} className="font-serif text-5xl text-charcoal" />
+                <CountUpRupee target={7199} className="font-serif text-4xl text-charcoal sm:text-5xl" />
                 <span className="text-muted">/ sft</span>
               </div>
               <p className="text-sm text-charcoal/60 mt-4 font-light">Exclusive pre-launch pricing for early visionaries.</p>
@@ -86,11 +86,11 @@ export function Pricing() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="bg-charcoal p-8 relative overflow-hidden text-white"
+              className="relative overflow-hidden bg-charcoal p-6 text-white sm:p-8"
             >
               <p className="text-sm uppercase tracking-widest text-white/60 mb-2">Projected Value</p>
               <div className="flex items-baseline gap-2">
-                <CountUpRupee target={11000} delay={0.2} className="font-serif text-5xl text-gold" />
+                <CountUpRupee target={11000} delay={0.2} className="font-serif text-4xl text-gold sm:text-5xl" />
                 <span className="text-white/60">/ sft</span>
               </div>
               <p className="text-sm text-white/60 mt-4 font-light">Estimated future potential based on Tellapur's growth corridor.</p>
@@ -103,19 +103,19 @@ export function Pricing() {
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="glass-panel p-8 md:p-12"
+              className="glass-panel p-5 sm:p-8 md:p-12"
             >
-              <div className="flex justify-between items-end mb-8 border-b border-stone pb-6">
-                <div>
-                  <h4 className="font-serif text-2xl text-charcoal mb-2">Wealth Narrative</h4>
-                  <p className="text-muted font-light text-sm">Tellapur Luxury Real Estate Index</p>
+              <div className="mb-8 flex flex-col gap-4 border-b border-stone pb-6 sm:flex-row sm:items-end sm:justify-between">
+                <div className="min-w-0">
+                  <h4 className="mb-2 font-serif text-xl text-charcoal sm:text-2xl">Wealth Narrative</h4>
+                  <p className="text-sm font-light text-muted">Tellapur Luxury Real Estate Index</p>
                 </div>
-                <div className="text-right">
-                  <span className="flex items-center gap-2 text-emerald-600 font-medium">
-                    <TrendingUp className="w-4 h-4" />
+                <div className="shrink-0 text-left sm:text-right">
+                  <span className="flex items-center gap-2 font-medium text-emerald-600">
+                    <TrendingUp className="h-4 w-4 shrink-0" />
                     +52%
                   </span>
-                  <p className="text-xs text-muted mt-1 uppercase tracking-wider">Expected ROI</p>
+                  <p className="mt-1 text-xs uppercase tracking-wider text-muted">Expected ROI</p>
                 </div>
               </div>
 
@@ -174,17 +174,17 @@ export function Pricing() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-4 mt-8 pt-6 border-t border-stone">
+              <div className="mt-8 grid grid-cols-1 gap-6 border-t border-stone pt-6 sm:grid-cols-3 sm:gap-4">
                 <div className="text-center">
-                  <ShieldCheck className="w-6 h-6 mx-auto text-gold mb-3" />
+                  <ShieldCheck className="mx-auto mb-3 h-6 w-6 text-gold" />
                   <p className="text-xs uppercase tracking-wider text-muted">RERA Approved</p>
                 </div>
-                <div className="text-center border-l border-r border-stone">
-                  <Clock className="w-6 h-6 mx-auto text-gold mb-3" />
+                <div className="text-center sm:border-l sm:border-r sm:border-stone sm:py-0">
+                  <Clock className="mx-auto mb-3 h-6 w-6 text-gold" />
                   <p className="text-xs uppercase tracking-wider text-muted">On-Time Delivery</p>
                 </div>
                 <div className="text-center">
-                  <TrendingUp className="w-6 h-6 mx-auto text-gold mb-3" />
+                  <TrendingUp className="mx-auto mb-3 h-6 w-6 text-gold" />
                   <p className="text-xs uppercase tracking-wider text-muted">High Appreciation</p>
                 </div>
               </div>

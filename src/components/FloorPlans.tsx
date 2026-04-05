@@ -31,8 +31,8 @@ export function FloorPlans() {
   const currentPlan = plans.find(p => p.id === activePlan);
 
   return (
-    <section className="py-12 md:py-20 bg-warm-white">
-      <div className="container mx-auto px-6 md:px-12">
+    <section className="bg-warm-white py-12 md:py-20">
+      <div className="container mx-auto max-w-full px-4 sm:px-6 md:px-12">
         
         <div className="text-center max-w-3xl mx-auto mb-10">
           <motion.div 
@@ -58,12 +58,12 @@ export function FloorPlans() {
         </div>
 
         {/* Custom Tabs */}
-        <div className="flex flex-wrap justify-center gap-4 mb-10">
+        <div className="mb-10 flex flex-wrap justify-center gap-2 sm:gap-4">
           {plans.map((plan) => (
             <button
               key={plan.id}
               onClick={() => setActivePlan(plan.id)}
-              className={`px-8 py-4 text-sm uppercase tracking-widest transition-all duration-300 border ${
+              className={`border px-4 py-3 text-[11px] uppercase tracking-widest transition-all duration-300 sm:px-8 sm:py-4 sm:text-sm ${
                 activePlan === plan.id 
                   ? 'border-charcoal bg-charcoal text-white' 
                   : 'border-stone text-charcoal hover:border-gold'
@@ -75,7 +75,7 @@ export function FloorPlans() {
         </div>
 
         {/* Plan Display */}
-        <div className="glass-panel p-4 md:p-12 rounded-2xl max-w-5xl mx-auto">
+        <div className="glass-panel mx-auto max-w-5xl rounded-2xl p-4 sm:p-8 md:p-12">
           <AnimatePresence mode="wait">
             <motion.div
               key={activePlan}
@@ -102,7 +102,7 @@ export function FloorPlans() {
                 </a>
               </div>
               
-              <div className="md:col-span-7 bg-white p-8 rounded-xl shadow-sm border border-stone/30">
+              <div className="rounded-xl border border-stone/30 bg-white p-4 shadow-sm sm:p-6 md:col-span-7 md:p-8">
                 {/* Abstract representation of a floor plan since we don't have real blueprint images */}
                 <div className="aspect-[4/3] relative overflow-hidden group cursor-crosshair">
                   <img 
