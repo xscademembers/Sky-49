@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Hero } from '../components/Hero';
+import { HeroVideoSection } from '../components/HeroVideoSection';
 import { Story } from '../components/Story';
 import { Pricing } from '../components/Pricing';
 import { Amenities } from '../components/Amenities';
@@ -18,6 +19,7 @@ export function Home() {
   return (
     <div className="relative w-full overflow-hidden">
       <Hero />
+      <HeroVideoSection />
       <Story />
       <Pricing />
       <Amenities />
