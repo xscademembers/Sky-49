@@ -1,0 +1,101 @@
+---
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/400-italic.css';
+import '@fontsource/poppins/600-italic.css';
+import '@fontsource-variable/inter/wght.css';
+import '../styles/global.css';
+
+import { site } from '../data/site';
+import { faqItems } from '../data/faq';
+import { buildJsonLd } from '../lib/schema';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+  ogImage?: string;
+}
+
+const {
+  title = site.title,
+  description = site.description,
+  canonicalPath = '/',
+  ogImage,
+} = Astro.props;
+
+const canonical = new URL(canonicalPath, site.url).href;
+const ogUrl = ogImage || site.heroImage.src;
+const jsonLd = buildJsonLd({
+  canonical,
+  faq: faqItems,
+  videoId: site.youtubeWalkthroughId,
+  heroImageUrl: site.heroImage.src,
+});
+---
+
+<!doctype html>
+<html lang="en-IN" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.fullName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:locale" content="en_IN" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogUrl} />
+    <meta name="theme-color" content="#FAF8F4" />
+    <meta
+      name="keywords"
+      content="Sky49 Hyderabad, Sky49 Tellapur, Sky49 Osman Nagar, luxury 3 BHK Hyderabad, 4 BHK Tellapur, Sky49 price, Sky49 floor plans, Sky49 location, RERA apartments Hyderabad, Ananda Prosper"
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://i.ytimg.com" />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18067596329"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'AW-18067596329');
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof url != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+          send_to: 'AW-18067596329/LfxSCJnr65ccEKnIpqdD',
+          value: 1.0,
+          currency: 'INR',
+          event_callback: callback,
+        });
+        return false;
+      }
+    </script>
+
+    {
+      jsonLd.map((block) => (
+        <script type="application/ld+json" set:html={JSON.stringify(block)} />
+      ))
+    }
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

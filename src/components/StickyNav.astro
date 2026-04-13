@@ -1,0 +1,49 @@
+---
+import MobileNav from './islands/MobileNav';
+import { site } from '../data/site';
+
+const links = [
+  { href: '/#about', label: 'About' },
+  { href: '/#highlights', label: 'Highlights' },
+  { href: '/#floor-plans', label: 'Floor Plans' },
+  { href: '/#amenities', label: 'Amenities' },
+  { href: '/#location', label: 'Location' },
+  { href: '/#faq', label: 'FAQ' },
+  { href: '/#contact', label: 'Contact' },
+] as const;
+---
+
+<header
+  class="sticky top-0 z-50 border-b border-stone/40 bg-warm-white/90 backdrop-blur-md"
+  role="banner"
+>
+  <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-10">
+    <a href="/#hero" class="group flex flex-col leading-tight">
+      <span class="font-serif text-xl tracking-tight text-charcoal transition-colors group-hover:text-gold md:text-2xl">
+        {site.name}
+      </span>
+      <span class="text-[10px] font-medium uppercase tracking-[0.25em] text-muted">Hyderabad</span>
+    </a>
+
+    <nav class="hidden items-center gap-8 lg:flex" aria-label="Primary">
+      {
+        links.map((l) => (
+          <a
+            href={l.href}
+            class="text-xs font-medium uppercase tracking-[0.18em] text-charcoal/80 transition-colors hover:text-gold"
+          >
+            {l.label}
+          </a>
+        ))
+      }
+      <a
+        href="/#contact"
+        class="rounded-full border border-gold/50 bg-white px-5 py-2 text-xs font-semibold uppercase tracking-wider text-charcoal shadow-sm transition hover:border-gold hover:bg-gold/10"
+      >
+        Book visit
+      </a>
+    </nav>
+
+    <MobileNav client:load links={[...links]} phone={site.phoneTel} />
+  </div>
+</header>

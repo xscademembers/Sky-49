@@ -1,0 +1,51 @@
+---
+const items = [
+  {
+    title: 'Skyline identity',
+    body:
+      'A vertical G+49 narrative across four towers creates a recognizable Sky49 Hyderabad silhouette—important for luxury buyers who value landmark presence and long-term address prestige in Tellapur.',
+  },
+  {
+    title: 'Amenity depth',
+    body:
+      'With over 1 lakh sq ft of amenities (indicative), Sky49 is designed as a daily-use club, not a checklist—wellness, social, and family zones scale for real weekend traffic, not brochure filler.',
+  },
+  {
+    title: 'Osman Nagar fit',
+    body:
+      'Osman Nagar’s growth story pairs greenfield calm with improving infrastructure—ideal for CXOs who want quieter evenings yet refuse to compromise on commute logic to Financial District and ORR.',
+  },
+  {
+    title: '3 & 4 BHK focus',
+    body:
+      'Large-format 3 BHK and 4 BHK layouts prioritize light, storage, and staff movement—supporting multi-generational living and work-from-home suites without awkward retrofits later.',
+  },
+] as const;
+---
+
+<section id="highlights" class="scroll-mt-24 bg-beige/40 py-16 md:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+    <div class="mb-12 max-w-2xl">
+      <div class="mb-4 flex items-center gap-4">
+        <div class="h-px w-10 bg-gold" aria-hidden="true"></div>
+        <p class="text-xs font-medium uppercase tracking-[0.25em] text-muted">Highlights</p>
+      </div>
+      <h2 class="font-serif text-3xl text-charcoal md:text-4xl">Why buyers shortlist Sky49 Tellapur</h2>
+      <p class="mt-4 text-muted">
+        These highlights mirror what discerning <strong>Hyderabad luxury apartment</strong> seekers compare
+        on first pass: location credibility, amenity depth, unit scale, and long-term lifestyle fit.
+      </p>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2">
+      {
+        items.map((item) => (
+          <article class="glass-panel rounded-2xl p-8 transition hover:border-gold/30">
+            <h3 class="font-serif text-2xl text-charcoal">{item.title}</h3>
+            <p class="mt-4 text-sm font-light leading-relaxed text-muted">{item.body}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

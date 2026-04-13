@@ -1,0 +1,66 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import StickyNav from '../components/StickyNav.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+const title = `Gallery | ${site.name} Hyderabad`;
+const description =
+  'Architectural and lifestyle imagery for Sky49 Tellapur ultra-luxury 3 & 4 BHK residences in Hyderabad.';
+
+const images = [
+  {
+    src: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Sky49 Hyderabad luxury residence living room with tall glazing and warm daylight',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Premium master bedroom interior at Sky49 Tellapur style apartments',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Designer kitchen with stone counters for ultra-luxury Hyderabad homes',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1600585154084-4e5fe7c39198?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Sky49 style sky lounge with panoramic views over Hyderabad',
+  },
+] as const;
+---
+
+<Layout {title} {description} canonicalPath="/gallery">
+  <StickyNav />
+  <main class="bg-warm-white pb-24 pt-8 sm:pb-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+      <header class="mb-12 max-w-2xl">
+        <p class="text-xs font-medium uppercase tracking-[0.25em] text-muted">Gallery</p>
+        <h1 class="mt-3 font-serif text-4xl text-charcoal md:text-5xl">Sky49 Hyderabad — visual gallery</h1>
+        <p class="mt-4 text-muted">
+          Editorial references for finish quality and scale. Replace with official Sky49 photography as your
+          asset bank is finalized.
+        </p>
+      </header>
+      <div class="grid gap-6 sm:grid-cols-2">
+        {
+          images.map((img) => (
+            <figure class="overflow-hidden rounded-2xl border border-stone/40 bg-white shadow-sm">
+              <Image
+                src={img.src}
+                alt={img.alt}
+                width={1200}
+                height={800}
+                class="aspect-[3/2] w-full object-cover"
+                loading="lazy"
+                decoding="async"
+                formats={['avif', 'webp']}
+              />
+              <figcaption class="sr-only">{img.alt}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

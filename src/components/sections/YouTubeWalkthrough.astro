@@ -1,0 +1,25 @@
+---
+import LiteYouTube from '../islands/LiteYouTube';
+import { site } from '../../data/site';
+---
+
+<section id="walkthrough" class="scroll-mt-24 border-t border-stone/40 bg-beige/40 py-16 md:py-24">
+  <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-10">
+    <div class="mb-8 text-center">
+      <div class="mb-4 flex justify-center">
+        <div class="h-px w-10 bg-gold" aria-hidden="true"></div>
+      </div>
+      <p class="text-xs font-medium uppercase tracking-[0.25em] text-muted">Walkthrough</p>
+      <h2 class="mt-3 font-serif text-3xl text-charcoal md:text-4xl">Lite YouTube — Sky49 Hyderabad</h2>
+      <p class="mx-auto mt-3 max-w-2xl text-sm text-muted">
+        Tap play to load the video; the page stays lightweight until you opt in—supporting strong mobile
+        performance scores for <strong>Sky49 Tellapur</strong> discovery traffic.
+      </p>
+    </div>
+    <LiteYouTube
+      client:visible
+      videoId={site.youtubeWalkthroughId}
+      title="Sky49 Hyderabad — ultra-luxury project walkthrough video"
+    />
+  </div>
+</section>

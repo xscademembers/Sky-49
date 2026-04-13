@@ -1,0 +1,4 @@
+# Optional: Cloudflare Pages project binding — set name in dashboard or via CLI
+name = "sky49-hyderabad"
+compatibility_date = "2025-01-01"
+pages_build_output_dir = "dist"

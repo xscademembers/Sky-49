@@ -1,0 +1,60 @@
+---
+import { instagramProfile, instagramReelEmbeds } from '../../data/site';
+---
+
+<section id="reels" class="scroll-mt-24 border-t border-stone/40 bg-warm-white py-16 md:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+    <div class="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <div>
+        <div class="mb-4 flex items-center gap-4">
+          <div class="h-px w-10 bg-gold" aria-hidden="true"></div>
+          <p class="text-xs font-medium uppercase tracking-[0.25em] text-muted">Instagram reels</p>
+        </div>
+        <h2 class="font-serif text-3xl text-charcoal md:text-4xl">Sky49 on social</h2>
+        <p class="mt-2 max-w-xl text-muted">
+          Follow Sky49 Hyderabad for launch films, construction milestones, and Tellapur corridor updates—ideal
+          for buyers researching <strong>Sky49 Tellapur</strong> beyond static brochures.
+        </p>
+      </div>
+      <a
+        href={instagramProfile}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center rounded-full border border-gold/40 bg-white px-6 py-3 text-xs font-semibold uppercase tracking-widest text-charcoal transition hover:bg-gold/10"
+      >
+        Open Instagram
+      </a>
+    </div>
+
+    {
+      instagramReelEmbeds.length > 0 ? (
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {instagramReelEmbeds.map((src) => (
+            <div class="overflow-hidden rounded-2xl border border-stone/40 bg-white shadow-[var(--shadow-card)]">
+              <iframe
+                title="Sky49 Instagram reel"
+                src={src}
+                class="aspect-[9/16] w-full bg-beige"
+                loading="lazy"
+                allowfullscreen
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="grid gap-6 md:grid-cols-3">
+          {['Lifestyle', 'Architecture', 'Tellapur corridor'].map((label) => (
+            <article class="glass-panel rounded-2xl p-8">
+              <p class="text-xs font-semibold uppercase tracking-[0.2em] text-gold">{label}</p>
+              <p class="mt-4 font-serif text-2xl text-charcoal">Reels curated in-studio</p>
+              <p class="mt-3 text-sm font-light leading-relaxed text-muted">
+                Add official Instagram reel embed URLs in your site configuration to activate inline reels
+                while keeping the rest of this page fully static for SEO.
+              </p>
+            </article>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</section>

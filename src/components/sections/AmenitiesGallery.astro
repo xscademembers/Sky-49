@@ -1,0 +1,59 @@
+---
+const shots = [
+  {
+    src: '/5-1024x682.png',
+    alt: 'Sky49 amenities gallery image 1',
+  },
+  {
+    src: '/12 (1).png',
+    alt: 'Sky49 amenities gallery image 2',
+  },
+  {
+    src: '/4-1024x682.png',
+    alt: 'Sky49 amenities gallery image 3',
+  },
+  {
+    src: '/2-1024x682.png',
+    alt: 'Sky49 amenities gallery image 4',
+  },
+] as const;
+---
+
+<section id="amenities" class="scroll-mt-24 bg-beige/40 py-16 md:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+    <div class="mb-10 max-w-3xl">
+      <div class="mb-4 flex items-center gap-4">
+        <div class="h-px w-10 bg-gold" aria-hidden="true"></div>
+        <p class="text-xs font-medium uppercase tracking-[0.25em] text-muted">Amenities gallery</p>
+      </div>
+      <h2 class="font-serif text-3xl text-charcoal md:text-4xl">Amenities at Sky49 Hyderabad</h2>
+      <p class="mt-4 text-muted">
+        Editorial references for lifestyle scale—actual Sky49 amenities may vary by tower phase. Confirm the
+        latest amenity list and opening sequence during your tour.
+      </p>
+      <p class="mt-4 text-sm font-light leading-relaxed text-muted">
+        A 1 lakh+ sq ft amenity footprint is meaningful only when programming matches real usage: weekday
+        peak hours, children’s schedules, elder accessibility, and weekend guest traffic. Ask how Sky49
+        sequences club openings, staffing, and maintenance budgets—premium living is operational, not merely
+        decorative.
+      </p>
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        shots.map((img, i) => (
+          <figure class="group overflow-hidden rounded-2xl border border-stone/40 bg-white shadow-sm">
+            <img
+              src={img.src}
+              alt={img.alt}
+              class="aspect-[4/3] w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+              loading={i < 2 ? 'eager' : 'lazy'}
+              decoding="async"
+            />
+            <figcaption class="sr-only">{img.alt}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>

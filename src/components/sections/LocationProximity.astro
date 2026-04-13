@@ -1,0 +1,73 @@
+---
+import { proximityRows, site } from '../../data/site';
+---
+
+<section id="location" class="scroll-mt-24 bg-warm-white py-16 md:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+    <div class="grid gap-10 lg:grid-cols-2 lg:items-start">
+      <div>
+        <div class="mb-4 flex items-center gap-4">
+          <div class="h-px w-10 bg-gold" aria-hidden="true"></div>
+          <p class="text-xs font-medium uppercase tracking-[0.25em] text-muted">Location</p>
+        </div>
+        <h2 class="font-serif text-3xl text-charcoal md:text-4xl">Sky49 location &amp; proximity</h2>
+        <p class="mt-4 text-muted">
+          Sky49 is mapped at <strong>The SKY 49 by Ananda Prosper</strong> in{' '}
+          <strong>Osman Nagar, Tellapur, Hyderabad</strong>. Drive times vary by time of day—treat the table as
+          directional, not guaranteed.
+        </p>
+        <p class="mt-4 text-sm font-light leading-relaxed text-muted">
+          Buyers comparing <strong>Sky49 Hyderabad</strong> with other west-city projects should test routes
+          during your own peak-hour windows—especially ORR merges and IT-corridor choke points. The goal is not
+          the shortest map line; it is the most predictable weekly rhythm for your household.
+        </p>
+
+        <div class="mt-8 overflow-hidden rounded-2xl border border-stone/50 bg-white shadow-sm">
+          <table class="w-full text-left text-sm">
+            <caption class="sr-only">
+              Sky49 Tellapur proximity drive times to major Hyderabad hubs
+            </caption>
+            <thead class="bg-beige/60 text-xs font-semibold uppercase tracking-wider text-charcoal">
+              <tr>
+                <th scope="col" class="px-4 py-3 md:px-5">Destination</th>
+                <th scope="col" class="px-4 py-3 md:px-5">Indicative time</th>
+                <th scope="col" class="hidden px-4 py-3 md:table-cell md:px-5">Note</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-stone/50 text-muted">
+              {
+                proximityRows.map((row) => (
+                  <tr>
+                    <th scope="row" class="px-4 py-4 font-medium text-charcoal md:px-5">
+                      {row.destination}
+                    </th>
+                    <td class="px-4 py-4 font-light md:px-5">{row.time}</td>
+                    <td class="hidden px-4 py-4 font-light md:table-cell md:px-5">{row.note}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="glass-panel overflow-hidden rounded-2xl p-2">
+        <div class="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-beige">
+          <iframe
+            title="Google Map — The SKY 49 by Ananda Prosper, Hyderabad"
+            src={site.mapEmbedSrc}
+            class="absolute inset-0 h-full w-full border-0"
+            width="600"
+            height="450"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          />
+        </div>
+        <p class="px-2 py-3 text-center text-xs text-muted">
+          Exact entry points may update during construction—confirm navigation pins before your visit.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

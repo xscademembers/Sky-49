@@ -1,0 +1,82 @@
+---
+const quickFacts = [
+  { label: 'Configuration', value: '3 & 4 BHK ultra-luxury homes' },
+  { label: 'Scale', value: 'G+49 towers with skyline presence' },
+  { label: 'Amenities', value: '1 lakh+ sq ft lifestyle spaces' },
+  { label: 'Address', value: 'Osman Nagar, Tellapur' },
+];
+---
+
+<section
+  id="about"
+  class="scroll-mt-24 bg-gradient-to-b from-warm-white to-beige/30 py-16 md:py-24"
+  aria-labelledby="about-heading"
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+    <div class="grid gap-10 lg:grid-cols-12 lg:gap-14">
+      <div class="lg:col-span-5">
+        <div class="sticky top-24 rounded-3xl border border-gold/30 bg-white/90 p-6 shadow-[var(--shadow-soft)] sm:p-8">
+          <div class="mb-6 flex items-center gap-4">
+            <div class="h-px w-10 bg-gold" aria-hidden="true"></div>
+            <p class="text-xs font-medium uppercase tracking-[0.25em] text-muted">About Sky49</p>
+          </div>
+
+          <h2 id="about-heading" class="font-serif text-4xl leading-tight text-charcoal md:text-5xl">
+            Sky49 Hyderabad: luxury living with long-term location value
+          </h2>
+
+          <p class="mt-5 text-sm leading-relaxed text-muted sm:text-base">
+            Sky49 Tellapur is planned as an ultra-luxury residential address for buyers who want strong
+            daily livability today and confident resale relevance tomorrow.
+          </p>
+
+          <dl class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {
+              quickFacts.map((fact) => (
+                <div class="rounded-2xl border border-stone/40 bg-warm-white/95 p-4">
+                  <dt class="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted">{fact.label}</dt>
+                  <dd class="mt-2 text-sm font-medium leading-relaxed text-charcoal">{fact.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7">
+        <div class="rounded-3xl border border-stone/40 bg-white p-6 shadow-[var(--shadow-card)] sm:p-8 md:p-10">
+          <div class="space-y-6 text-base leading-relaxed text-muted">
+            <p class="text-lg text-charcoal/90">
+              <strong class="font-medium text-charcoal">Sky49 Hyderabad</strong> rises in
+              <strong class="font-medium text-charcoal"> Osman Nagar, Tellapur</strong> within the city’s premium
+              western corridor. It is positioned for buyers comparing <em>Sky49 floor plans</em>,
+              <em> Sky49 location</em>, and <em>Sky49 price</em> against long-horizon lifestyle quality.
+            </p>
+
+            <p>
+              The project narrative combines vertical scale with a full-time residence mindset: high-rise towers,
+              curated amenities, and planning choices that prioritize privacy, circulation, natural light, and
+              social infrastructure rather than only marketing visuals.
+            </p>
+
+            <p>
+              Tellapur’s advantage is practical as much as aspirational, with routes toward ORR, Financial District,
+              Gachibowli, and the Neopolis-Kokapet growth belt. That matters for families balancing work commute,
+              school access, and long-term asset liquidity.
+            </p>
+
+            <p>
+              From a due-diligence perspective, always verify latest
+              <strong class="font-medium text-charcoal"> RERA and project disclosures</strong> before purchase. For
+              current availability, unit matching, and payment structuring, combine this page’s
+              <a href="#facts" class="text-gold underline-offset-4 hover:underline">quick facts</a>,
+              <a href="#location" class="text-gold underline-offset-4 hover:underline">location section</a>, and
+              <a href="#faq" class="text-gold underline-offset-4 hover:underline">FAQ</a>
+              with a guided on-site walkthrough.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

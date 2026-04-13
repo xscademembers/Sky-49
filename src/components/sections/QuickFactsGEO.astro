@@ -1,0 +1,47 @@
+---
+import { quickFactsRows } from '../../data/site';
+---
+
+<section id="facts" class="scroll-mt-24 bg-warm-white py-16 md:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+    <div class="mb-10 max-w-3xl">
+      <div class="mb-4 flex items-center gap-4">
+        <div class="h-px w-10 bg-gold" aria-hidden="true"></div>
+        <p class="text-xs font-medium uppercase tracking-[0.25em] text-muted">GEO facts</p>
+      </div>
+      <h2 class="font-serif text-3xl text-charcoal md:text-4xl">Quick facts — Sky49 Hyderabad</h2>
+      <p class="mt-3 max-w-3xl text-muted">
+        Structured project highlights for buyers comparing <strong>Sky49 Hyderabad</strong>,
+        <strong> Sky49 price</strong>, and <strong>Sky49 floor plans</strong> with confidence.
+      </p>
+    </div>
+
+    <div class="rounded-3xl border border-gold/30 bg-gradient-to-r from-warm-white via-white to-beige/40 p-5 shadow-[var(--shadow-soft)] sm:p-6">
+      <div class="grid gap-4 sm:grid-cols-3">
+        <div class="rounded-2xl border border-stone/40 bg-white/80 p-4">
+          <p class="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted">Configuration</p>
+          <p class="mt-2 font-serif text-xl text-charcoal">3 &amp; 4 BHK</p>
+        </div>
+        <div class="rounded-2xl border border-stone/40 bg-white/80 p-4">
+          <p class="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted">Tower profile</p>
+          <p class="mt-2 font-serif text-xl text-charcoal">G+49 high-rise</p>
+        </div>
+        <div class="rounded-2xl border border-stone/40 bg-white/80 p-4">
+          <p class="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted">Location</p>
+          <p class="mt-2 font-serif text-xl text-charcoal">Tellapur, Hyderabad</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        quickFactsRows.map((row) => (
+          <article class="rounded-2xl border border-stone/50 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/40 hover:shadow-[var(--shadow-soft)]">
+            <p class="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted">{row.label}</p>
+            <p class="mt-3 text-sm font-light leading-relaxed text-charcoal/90">{row.value}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+---
+import { site } from '../data/site';
+const wa = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent('Hi, I want to book a Sky49 Hyderabad site visit.')}`;
+---
+
+<div
+  class="fixed inset-x-0 bottom-0 z-40 border-t border-stone/40 bg-warm-white/95 px-3 py-3 backdrop-blur-md sm:hidden"
+  role="region"
+  aria-label="Quick actions"
+>
+  <div class="mx-auto flex max-w-lg gap-2">
+    <a
+      href={`tel:${site.phoneTel}`}
+      class="flex flex-1 items-center justify-center rounded-full border border-charcoal bg-charcoal py-3 text-[10px] font-semibold uppercase tracking-widest text-white"
+    >
+      Call now
+    </a>
+    <a
+      href={wa}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex flex-1 items-center justify-center rounded-full border border-gold bg-gold/15 py-3 text-[10px] font-semibold uppercase tracking-widest text-charcoal"
+    >
+      WhatsApp
+    </a>
+    <a
+      href="/#contact"
+      class="flex flex-1 items-center justify-center rounded-full border border-stone bg-white py-3 text-[10px] font-semibold uppercase tracking-widest text-charcoal"
+    >
+      Visit
+    </a>
+  </div>
+</div>
